@@ -43,6 +43,8 @@
      (make-text-node root (princ-to-string input)))))
 
 (defgeneric parse (input &key root)
+  (:documentation "Transform a list into a Plump-DOM. 
+Alternatively a pathname, stream or string may be passed as well, which will be READ to a list.")
   (:method ((input list) &key root)
     (if root
         (transform-sexp input root)
