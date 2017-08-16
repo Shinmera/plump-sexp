@@ -4,10 +4,6 @@
  Author: Nicolas Hafner <shinmera@tymoon.eu>
 |#
 
-(defpackage org.tymoonnext.plump.sexp.asdf
-  (:use :cl :asdf))
-(in-package :org.tymoonnext.plump.sexp.asdf)
-
 (defsystem plump-sexp
   :name "Plump-SEXP"
   :version "0.1.0"
