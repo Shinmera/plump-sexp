@@ -11,3 +11,4 @@ Of course, you can now also transform any kind of Plump document into such an SE
     (plump-sexp:serialize (plump:parse "<div id="bar"><p>foo</p>baz</div>"))
     => (:!ROOT ((:DIV :ID "bar") (:P "foo") "baz"))
 
+If you have tags with case differences, you can also use strings for the tag and attribute names.

@@ -19,6 +19,17 @@
 ;; BLOCK     ::= atom | (TAG BLOCK*)
 ;; TAG       ::= symbol | (symbol ATTRIBUTE*)
 ;; ATTRIBUTE ::= symbol atom
+(defun name->string (name)
+  (etypecase name
+    (symbol (string-downcase name))
+    (string name)))
+
+(defun string->name (string)
+  (if (loop for char across string
+            always (or (not (both-case-p char))
+                       (lower-case-p char)))
+      (intern (string-upcase string) "KEYWORD")
+      string))
 
 (defun transform-sexp (input &optional root)
   (typecase input
@@ -27,14 +38,14 @@
      (destructuring-bind (tag &rest blocks) input
        (destructuring-bind (tag &rest attributes) (if (listp tag) tag (list tag))
          (case tag
-           (:!COMMENT (make-comment root (princ-to-string (first input))))
-           (:!DOCTYPE (make-doctype root (princ-to-string (first input))))
+           (:!COMMENT (make-comment root (princ-to-string (first blocks))))
+           (:!DOCTYPE (make-doctype root (princ-to-string (first blocks))))
            (:!ROOT
             (loop for child in blocks
                   do (transform-sexp child root)))
-           (T (let ((node (make-element root (string-downcase tag))))
+           (T (let ((node (make-element root (name->string tag))))
                 (loop for (key val) on attributes by #'cddr
-                      do (setf (attribute node (string-downcase key))
+                      do (setf (attribute node (name->string key))
                                (princ-to-string val)))
                 (loop for child in blocks
                       do (transform-sexp child node)))))))
@@ -76,11 +87,11 @@ Alternatively a pathname, stream or string may be passed as well, which will be 
     (append
      (list
       (if (< 0 (hash-table-count (attributes node)))
-          (cons (intern (string-upcase (tag-name node)) "KEYWORD")
+          (cons (string->name (tag-name node))
                 (loop for key being the hash-keys of (attributes node)
                       for val being the hash-values of (attributes node)
-                      nconc (list (intern (string-upcase key) "KEYWORD") val)))
-          (intern (string-upcase (tag-name node)) "KEYWORD")))
+                      nconc (list (string->name key) val)))
+          (string->name (tag-name node))))
      (when (< 0 (length (children node)))
        (loop for child across (children node)
              collect (serialize child))))))
