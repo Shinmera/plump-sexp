@@ -83,7 +83,7 @@ Alternatively a pathname, stream or string may be passed as well, which will be 
            (when (< 0 (hash-table-count (attributes node)))
              (loop for key being the hash-keys of (attributes node)
                    for val being the hash-values of (attributes node)
-                   nconc (list (string->name key) val))))))
+                   collect (string->name key) collect val)))))
   (:method ((node comment))
     (list :!COMMENT (text node)))
   (:method ((node doctype))
