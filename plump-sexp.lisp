@@ -38,6 +38,10 @@
      (destructuring-bind (tag &rest blocks) input
        (destructuring-bind (tag &rest attributes) (if (listp tag) tag (list tag))
          (case tag
+           (:!HEADER (let ((node (make-xml-header root)))
+                       (loop for (key val) on attributes by #'cddr
+                             do (setf (attribute node (name->string key))
+                                      (princ-to-string val)))))
            (:!COMMENT (make-comment root (princ-to-string (first blocks))))
            (:!DOCTYPE (make-doctype root (princ-to-string (first blocks))))
            (:!ROOT
@@ -73,6 +77,13 @@ Alternatively a pathname, stream or string may be passed as well, which will be 
 
 (defgeneric serialize (node)
   (:documentation "Serialize the given node into a SEXP form.")
+  (:method ((node xml-header))
+    (list
+     (cons :!HEADER
+           (when (< 0 (hash-table-count (attributes node)))
+             (loop for key being the hash-keys of (attributes node)
+                   for val being the hash-values of (attributes node)
+                   nconc (list (string->name key) val))))))
   (:method ((node comment))
     (list :!COMMENT (text node)))
   (:method ((node doctype))
