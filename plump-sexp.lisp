@@ -79,7 +79,7 @@ Alternatively a pathname, stream or string may be passed as well, which will be 
   (:documentation "Serialize the given node into a SEXP form.")
   (:method ((node xml-header))
     (list
-     (cons :!HEADER
+     (list* :!HEADER
            (when (< 0 (hash-table-count (attributes node)))
              (loop for key being the hash-keys of (attributes node)
                    for val being the hash-values of (attributes node)
