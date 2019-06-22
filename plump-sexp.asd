@@ -7,7 +7,7 @@
 (defsystem plump-sexp
   :name "Plump-SEXP"
   :version "0.1.0"
-  :license "Artistic"
+  :license "zlib"
   :author "Nicolas Hafner <shinmera@tymoon.eu>"
   :maintainer "Nicolas Hafner <shinmera@tymoon.eu>"
   :description "Turning SEXPs into a Plump DOM and back."
