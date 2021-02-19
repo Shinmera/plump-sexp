@@ -54,6 +54,7 @@
                 (loop for child in blocks
                       do (transform-sexp child node)))))))
      root)
+    (plump:element (plump:append-child root input))
     (T (unless root (setf root (make-root)))
      (make-text-node root (princ-to-string input)))))
 
