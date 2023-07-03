@@ -1,15 +1,9 @@
-#|
- This file is a part of Plump
- (c) 2014 Shirakumo http://tymoon.eu (shinmera@tymoon.eu)
- Author: Nicolas Hafner <shinmera@tymoon.eu>
-|#
-
 (defsystem plump-sexp
   :name "Plump-SEXP"
   :version "0.1.0"
   :license "zlib"
-  :author "Nicolas Hafner <shinmera@tymoon.eu>"
-  :maintainer "Nicolas Hafner <shinmera@tymoon.eu>"
+  :author "Yukari Hafner <shinmera@tymoon.eu>"
+  :maintainer "Yukari Hafner <shinmera@tymoon.eu>"
   :description "Turning SEXPs into a Plump DOM and back."
   :homepage "https://Shinmera.github.io/plump-sexp/"
   :bug-tracker "https://github.com/Shinmera/plump-sexp/issues"
