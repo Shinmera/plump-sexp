@@ -100,4 +100,6 @@ Alternatively a pathname, stream or string may be passed as well, which will be 
           (string->name (tag-name node))))
      (when (< 0 (length (children node)))
        (loop for child across (children node)
-             collect (serialize child))))))
+             collect (serialize child)))))
+  (:method ((node cdata))
+    (text node)))
