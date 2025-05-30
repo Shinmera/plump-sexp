@@ -41,7 +41,11 @@
            (:!ROOT
             (loop for child in blocks
                   do (transform-sexp child root)))
-           (T (let ((node (make-element root (name->string tag))))
+           (T (let ((node (funcall (if (member tag '(SCRIPT STYLE)
+                                               :test #'string-equal)
+                                       #'make-fulltext-element
+                                       #'make-element)
+                                   root (name->string tag))))
                 (loop for (key val) on attributes by #'cddr
                       do (setf (attribute node (name->string key))
                                (princ-to-string val)))
