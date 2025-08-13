@@ -1,14 +1,4 @@
-plump-sexp
-==========
+# This repository has [moved](https://shinmera.com/projects/plump-sexp)!
+Due to Microsoft's continued enshittification of the platform this repository has been moved to [Codeberg](https://shinmera.com/projects/plump-sexp) in August of 2025. It will not receive further updates or patches. **Issues and pull requests will not be looked at here either**, please submit your patches and issue tickets on Codeberg, or send them directly via good old email patches to [shirakumo@tymoon.eu](mailto:shirakumo@tymoon.eu).
 
-Yet another SEXP to HTML thing. This time with Plump back-end.
-
-    (plump:serialize (plump-sexp:parse '((div :id "foo") (p "bar") "baz")))
-    => <div id="foo"><p>bar</p>baz</div>
-
-Of course, you can now also transform any kind of Plump document into such an SEXP tree:
-
-    (plump-sexp:serialize (plump:parse "<div id="bar"><p>foo</p>baz</div>"))
-    => (:!ROOT ((:DIV :ID "bar") (:P "foo") "baz"))
-
-If you have tags with case differences, you can also use strings for the tag and attribute names.
+Thanks.
